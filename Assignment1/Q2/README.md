@@ -1,7 +1,8 @@
-Firstly use the command lex countKeywords.l
-This would produce a file named `lex.yy.c`
-Run this file using the command gcc lex.yy.c
-This would produce an a.exe file
-Run this executable file using the command ./a.exe
+### How TO Run The Program:
+1. Firstly use the command `lex countKeywords.l`
+2. This would produce a file named `lex.yy.c`
+3. Run this file using the command `gcc lex.yy.c`
+4. This would produce an `a.exe` file
+5. Run this executable file using the command `./a.exe`
 
-To remove the unwanted spaces in the terminal/cmd use the command gcc lex.yy.c -DECHO
+- To remove the unwanted spaces in the terminal/cmd use the command `gcc lex.yy.c -DECHO`
