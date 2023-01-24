@@ -22,7 +22,7 @@ LITERALS \"(\\.|[^"\\])*\"
 
 %%
 define[[:space:]]{VARNAME}[[:space:]][[:alnum:]]?{LITERALS}?   {printf("The matched constant is: %s\n", yytext); i++;}
-const[[:space:]]{TYPE}[[:space:]]{VARNAME}[][[:space:]]*=[[:space:]]*.+  {printf("The matched constant is: %s\n", yytext); i++;}
+const[[:space:]]{TYPE}[[:space:]]{VARNAME}[[:space:]]*"[]"?[[:space:]]*=[[:space:]]*.+  {printf("The matched constant is: %s\n", yytext); i++;}
 .   ;
 %%
 
