@@ -27,7 +27,7 @@ int countConstants(char *c)
             state = SAW_SLASH;
             break;
         default:
-            if (strcmp(c, "#define") == 0 || strcmp(c, "const") == 0)
+            if (!strcmp(c, "#define") || !strcmp(c, "const"))
             {
                 count_constants++;
             };
@@ -38,7 +38,19 @@ int countConstants(char *c)
         switch (c[0])
         {
         case '/':
-            state = SINGLE_COMMENT;
+            switch (c[1])
+            {
+            case '/':
+                state = SINGLE_COMMENT;
+                break;
+
+            case '*':
+                state = MULTI_COMMENT;
+                break;
+
+            default:
+                break;
+            }
             break;
         case '*':
             state = MULTI_COMMENT;
@@ -56,6 +68,16 @@ int countConstants(char *c)
             state = TEXT;
             break;
         case '*':
+            switch (c[1])
+            {
+            case '/':
+                state = TEXT;
+                break;
+
+            default:
+                state = MULTI_COMMENT;
+                break;
+            }
             break;
         default:
             state = MULTI_COMMENT;
@@ -89,11 +111,43 @@ int countConstants(char *c)
     }
 }
 
+void readLine(FILE *filePtr, char c)
+{
+
+    char line[256];
+
+    if (c == '\n')
+        return;
+    fseek(filePtr, -1, SEEK_CUR);
+    int charLen = 0;
+    for (int i = 0; c != '\n'; i++)
+    {
+        fscanf(filePtr, "%c", &c);
+        charLen++;
+        line[i] = c;
+    }
+
+    // for (int i = 0; i < charLen; i++)
+    // {
+    //     printf("%c", actualLine[i]);
+    // }
+
+    char arrayToSend[charLen];
+    for (int i = 0; i < charLen; i++)
+    {
+        arrayToSend[i] = line[i];
+    }
+
+    char *c1 = strtok(arrayToSend, " ");
+    countConstants(c1);
+}
+
 int main()
 {
     FILE *filePtr;
-    filePtr = fopen("test.c", "r");
+    char c;
     char line[256];
+    filePtr = fopen("test.c", "r");
 
     if (NULL == filePtr)
     {
@@ -101,11 +155,11 @@ int main()
         return -1;
     }
 
-    while (fgets(line, sizeof(line), filePtr))
+    while ((c = fgetc(filePtr)) != EOF)
     {
-        char *c = strtok(line, " ");
-        countConstants(c);
+        readLine(filePtr, c);
     }
+
     fclose(filePtr);
     printf("No. of constants in file: %d\n", count_constants);
     return 0;
