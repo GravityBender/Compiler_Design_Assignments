@@ -9,5 +9,5 @@
 <br/>
 <div style="text-align: center;">
   ### OR
- </div
+ </div>
 - Simply run the Identifiers.c file.
