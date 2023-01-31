@@ -7,5 +7,5 @@
 
 - To remove the unwanted spaces in the terminal/cmd use the command `gcc lex.yy.c -DECHO`
 <br/>
-###:OR:
+### :OR:
 - Simply run the Identifiers.c file.
