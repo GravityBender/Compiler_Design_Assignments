@@ -19,18 +19,22 @@ bool isDelimiter(char ch)
 // Returns 'true' if the string is a KEYWORD.
 bool isKeyword(char *str)
 {
-	if (!strcmp(str, "if") || !strcmp(str, "else") ||
-		!strcmp(str, "while") || !strcmp(str, "do") ||
-		!strcmp(str, "break") ||
-		!strcmp(str, "continue") || !strcmp(str, "int") ||
-		!strcmp(str, "double") || !strcmp(str, "float") ||
-		!strcmp(str, "return") || !strcmp(str, "char") ||
+	if (!strcmp(str, "auto") || !strcmp(str, "break") ||
 		!strcmp(str, "case") || !strcmp(str, "char") ||
-		!strcmp(str, "sizeof") || !strcmp(str, "long") ||
-		!strcmp(str, "short") || !strcmp(str, "typedef") ||
-		!strcmp(str, "switch") || !strcmp(str, "unsigned") ||
-		!strcmp(str, "void") || !strcmp(str, "static") ||
-		!strcmp(str, "struct") || !strcmp(str, "goto"))
+		!strcmp(str, "const") || !strcmp(str, "continue") ||
+		!strcmp(str, "default") || !strcmp(str, "do") ||
+		!strcmp(str, "double") || !strcmp(str, "else") ||
+		!strcmp(str, "enum") || !strcmp(str, "extern") ||
+		!strcmp(str, "float") || !strcmp(str, "for") ||
+		!strcmp(str, "goto") || !strcmp(str, "if") ||
+		!strcmp(str, "int") || !strcmp(str, "long") ||
+		!strcmp(str, "register") || !strcmp(str, "return") ||
+		!strcmp(str, "short") || !strcmp(str, "signed") ||
+		!strcmp(str, "sizeof") || !strcmp(str, "static") ||
+		!strcmp(str, "struct") || !strcmp(str, "switch") ||
+		!strcmp(str, "typedef") || !strcmp(str, "union") ||
+		!strcmp(str, "unsigned") || !strcmp(str, "void") ||
+		!strcmp(str, "volatile") || !strcmp(str, "while"))
 		return (true);
 	return (false);
 }
@@ -56,6 +60,14 @@ void parse(char *str)
 
 	while (right <= len && left <= right)
 	{
+
+		//  If the line contains even a single instance of ", ', * or // assume that it is a string literal or a comment
+		//  and hence break the processing of the current line
+		if (str[right] == '\'' || str[right] == '\"' || str[right] == '*' || str[right] == '/')
+		{
+			return;
+		}
+
 		if (isDelimiter(str[right]) == false)
 			right++;
 
@@ -83,7 +95,6 @@ void parse(char *str)
 // DRIVER FUNCTION
 int main()
 {
-	// maximum length of string is 100 here
 	FILE *filePtr;
 	char *line;
 	filePtr = fopen("test.c", "r");
