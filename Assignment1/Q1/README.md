@@ -1,4 +1,5 @@
 ### How TO Run The Program:
+
 1. Firstly use the command `lex countIdentifiers.l`
 2. This would produce a file named `lex.yy.c`
 3. Run this file using the command `gcc lex.yy.c`
@@ -7,6 +8,6 @@
 
 - To remove the unwanted spaces in the terminal/cmd use the command `gcc lex.yy.c -DECHO`
 <br/>
-<center><h3 style="text-align: center;">OR</h3></center>
 
+#### OR
 - Simply run the Identifiers.c file.
