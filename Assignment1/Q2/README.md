@@ -6,3 +6,6 @@
 5. Run this executable file using the command `./a.exe`
 
 - To remove the unwanted spaces in the terminal/cmd use the command `gcc lex.yy.c -DECHO`
+
+#### OR
+- Simply run the Keywords.c file
