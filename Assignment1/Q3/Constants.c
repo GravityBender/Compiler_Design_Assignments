@@ -41,7 +41,7 @@ int countConstants(char *c)
             switch (c[1])
             {
             case '/':
-                state = SINGLE_COMMENT;
+                state = TEXT;
                 break;
 
             case '*':
@@ -57,6 +57,10 @@ int countConstants(char *c)
             break;
         default:
             state = TEXT;
+            if (!strcmp(c, "#define") || !strcmp(c, "const"))
+            {
+                count_constants++;
+            };
             break;
         }
         break;
