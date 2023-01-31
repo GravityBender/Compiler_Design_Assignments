@@ -7,5 +7,7 @@
 
 - To remove the unwanted spaces in the terminal/cmd use the command `gcc lex.yy.c -DECHO`
 <br/>
-### :OR:
+<div style="text-align: center;">
+  ### OR
+ </div
 - Simply run the Identifiers.c file.
